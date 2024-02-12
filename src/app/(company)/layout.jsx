@@ -1,11 +1,27 @@
 'use client'
 import Link from 'next/link'
+import { usePathname, useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 
 function layout({children}) {
     // useEffect(()=>{
     //     console.log('logging page view')
     // },[])
+
+    const searchParams = useSearchParams();
+
+    const updateSorting = (sortOrder)=>{
+        const params = new URLSearchParams(searchParams.toString())
+        params.set('sort', sortOrder);
+        window.history.pushState(null, '', `?${params.toString()}`)
+    }
+    const pathname = usePathname();
+
+    const switchLocale = (locale)=>{
+        const newPath = `/${locale}${pathname}`;
+        window.history.replaceState(null, '', newPath);
+    }
+
   return (
     <section className='py-24 '>
         <div className="container flex">
@@ -21,6 +37,12 @@ function layout({children}) {
                 {children}
             </main>
         </div>
+        <footer className="border-t border-gray-200 py-6">
+            {/* <button className='bg-blue-400 p-2 mr-2 ' onClick={()=>updateSorting('something')} >sort ascending</button>
+            <button className='bg-red-400 p-2 ml-2 ' onClick={()=>updateSorting('desc')} >sort descending</button> */}
+            <button className='bg-blue-400 p-2 mr-2 ' onClick={()=>switchLocale('en')} >English</button>
+            <button className='bg-red-400 p-2 ml-2 ' onClick={()=>switchLocale('fr')} >French</button>
+        </footer>
     </section>
   )
 }
