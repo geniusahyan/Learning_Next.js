@@ -17,6 +17,7 @@ const error = ({error, reset}) => {
         Try again
       </button>
     </div>
+    // global error is also available => global-error.jsx
   )
 }
 

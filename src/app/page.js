@@ -6,7 +6,6 @@ const takeTime = async ()=>{
 }
 
 export default async function page() {
-  some
   // await takeTime();
   return (
     <div className='flex justify-center items-center h-screen ' >
